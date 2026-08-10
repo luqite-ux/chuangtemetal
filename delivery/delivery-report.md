@@ -3,36 +3,41 @@
 - Formal domain: `https://chuangtecasting.com`
 - Corporate email: `info@chuangtecasting.com`
 - Customer repository: `https://github.com/luqite-ux/chuangtemetal`
-- Customer commit: `5162e58e4fbbb0e6d4d5e3b2669d0df480eb9f09`
+- Audited implementation commit: `c194ee1abc0a51e3df92e18d8e95e4054094d972`
 - Vercel project: `prj_Eb3B7MQpYtMFhy6TQuEGpLr2euT7`
-- Production deployment: `dpl_AG67Kku13K6Sw9cRXCnLvYUXpvcm`
+- Production deployment: `dpl_DkYQztKkmJGcuQNabcSnqcnZ45AY`
 - Tenant ID: `993d7d80-4466-4f38-8a93-078e32bc1627`
 - Admin group: `2`
 - Launch locale: English (`en`); extensible locale data and routes retained
 
 ## Delivered scope
 
-- Independent homepage, products, two product detail pages, capabilities, industries, factory, about, news, FAQ, contact and RFQ pages.
+- Independent homepage, products, two product detail pages, capabilities, quality and documentation, industries, factory, about, news, FAQ, contact and RFQ pages.
 - Bright industrial visual system, responsive navigation, reduced-motion support and uploaded ChuangTe logo/favicon.
 - Supabase product and article data layers with multilingual JSONB fallbacks.
 - Real contact and RFQ inquiry writes plus private engineering-file upload.
-- Customer `/admin` login handoff to the unified administration center.
-- Dynamic product/article metadata, canonical URLs, Open Graph, Twitter Card, JSON-LD, robots and Sitemap.
+- Customer-domain `/admin` proxy with local login, protected session, product/article/settings writes and logout enforcement.
+- Dynamic product/article metadata, canonical URLs, Open Graph, Twitter Card, Organization/Product/NewsArticle/Breadcrumb/FAQ JSON-LD, robots and database-driven Sitemap.
 - GitHub, Vercel, Cloudflare DNS, HTTPS and permanent `www` to apex redirect.
 
 ## Verification evidence
 
-- Unit/integration tests: 24 passed.
+- Unit/integration tests: 25 passed.
 - ESLint: passed.
-- Next.js 16.2.11 production build: passed; 23 generated routes.
-- Browser QA: desktop and 390 px mobile; mobile menu; zero customer-site console errors and warnings.
-- Lighthouse: Accessibility `1.00`, SEO `1.00`, color contrast `1.00` with zero contrast failures.
-- Online SEO scan: 12/12 independent pages returned 200; unique titles; descriptions; matching canonical and Open Graph URLs; Sitemap 12 URLs.
+- Next.js 16.2.11 production build: passed; all static, ISR, dynamic detail, administration and API routes generated successfully.
+- Browser QA: all 13 Sitemap pages opened on desktop and 390 px mobile; one `h1` per page, no broken images, no remaining horizontal overflow, and mobile navigation verified.
+- Lighthouse on the final quality page: Accessibility `1.00`, SEO `1.00`, color contrast `1.00` with zero contrast failures; the previously audited homepage has the same scores.
+- Online SEO scan: 13/13 independent pages returned 200; titles, descriptions, canonical and Open Graph URLs matched; 12 discovered internal links had no 4xx/5xx responses.
+- Sitemap: 13 canonical URLs; active products are database-driven and use their actual Supabase `updated_at` values; deleted test articles are absent.
 - Product database: exactly two active products; all launch images are absolute R2 URLs.
 - News database: empty after successful create/translate/publish/render/delete verification.
 - One-click translation: product and article translated from English to Chinese, manually edited, saved and reopened successfully; launch language restored to English-only while translated JSONB remains available.
 - Inquiry verification: contact and RFQ submissions appeared in the customer backend; RFQ attachment upload succeeded; two test inquiries, one test attachment and one test article were deleted; residue count is zero.
 - Content safety: no warranty/guarantee terms found in source, database or online independent pages.
+- Customer administration: unauthenticated `/admin` redirects to `/admin/login`; formal account login remains on `chuangtecasting.com`; product, article and settings writes passed through the proxy; logout clears `hq_admin_session` and protected access returns to the customer login page.
+- Shared administration origin allowlist already includes both `chuangtecasting.com` and `www.chuangtecasting.com`.
+- Vercel: formal apex, `www` redirect and project domain verified; all six required environment variables are configured for Development, Preview and Production.
+- Feishu: customer row `1ae2e0!A32:L32` was read back through the API and all twelve delivery columns match the final customer data.
 - Cloudflare: active Zone with authoritative nameservers `eleanor.ns.cloudflare.com` and `sterling.ns.cloudflare.com`; Vercel-specific apex A and `www` CNAME records verified.
 - Corporate email DNS: six Cloudflare mail-related records were backed up and all six verified publicly; two public MX and two apex TXT answers were confirmed.
 
