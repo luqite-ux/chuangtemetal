@@ -6,13 +6,13 @@ import { ImageGallery } from "@/components/image-gallery";
 import { Reveal } from "@/components/motion/reveal";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
 import { getProductBySlug } from "@/lib/products-db";
-import { buildProductJsonLd } from "@/lib/seo";
+import { buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 export const dynamicParams = true;
 
 export function generateStaticParams() { return FALLBACK_PRODUCTS.map((product) => ({ slug: product.slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> { const { locale, slug } = await params; const product = await getProductBySlug(slug, locale); return product ? { title: product.name, description: product.summary, alternates: { canonical: `/${locale}/products/${slug}` }, openGraph: { title: product.name, description: product.summary, images: [{ url: product.image }] } } : {}; }
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> { const { locale, slug } = await params; const product = await getProductBySlug(slug, locale); return product ? buildProductMetadata(product, locale) : {}; }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params; const product = await getProductBySlug(slug, locale); if (!product) notFound();

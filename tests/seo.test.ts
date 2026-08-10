@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, buildAlternates, buildProductJsonLd } from "@/lib/seo";
+import { absoluteUrl, buildAlternates, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
+import robots from "@/app/robots";
 
 describe("technical SEO helpers", () => {
   it("uses the confirmed formal HTTPS domain", () => {
@@ -22,5 +23,23 @@ describe("technical SEO helpers", () => {
     expect(schema["@type"]).toBe("Product");
     expect(schema.name).toBe("Heat-Resistant Steel Charge Tray");
     expect(schema.url).toContain("/en/products/heat-resistant-steel-charge-tray");
+  });
+
+  it("builds complete product sharing metadata", () => {
+    const metadata = buildProductMetadata(FALLBACK_PRODUCTS[0], "en");
+    expect(metadata.openGraph).toMatchObject({
+      type: "website",
+      url: "https://chuangtecasting.com/en/products/heat-resistant-steel-charge-tray",
+    });
+    expect(metadata.twitter).toMatchObject({ card: "summary_large_image" });
+  });
+
+  it("keeps administration and API routes out of search results", () => {
+    const rules = robots().rules;
+    expect(rules).toMatchObject({
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/admin", "/api/", "/auth/", "/preview/"],
+    });
   });
 });
