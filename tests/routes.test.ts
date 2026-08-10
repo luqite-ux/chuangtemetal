@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { NAV_ITEMS, PUBLIC_ROUTES, PRODUCT_SLUGS } from "@/lib/site-config";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 describe("public route contract", () => {
@@ -40,8 +40,22 @@ describe("public route contract", () => {
     ]);
   });
 
-  it("provides the tenant administration login handoff", () => {
-    expect(existsSync(join(process.cwd(), "app/admin/page.tsx"))).toBe(true);
-    expect(existsSync(join(process.cwd(), "app/api/admin-login/route.ts"))).toBe(true);
+  it("provides the standard proxied tenant administration flow", () => {
+    const required = [
+      "app/admin/login/page.tsx",
+      "app/admin/login/layout.tsx",
+      "app/admin/logout/route.ts",
+      "app/api/auth/login/route.ts",
+      "lib/admin-session.ts",
+      "lib/supabase/server.ts",
+      "middleware.ts",
+    ];
+    for (const file of required) expect(existsSync(join(process.cwd(), file))).toBe(true);
+    expect(existsSync(join(process.cwd(), "app/admin/page.tsx"))).toBe(false);
+    expect(existsSync(join(process.cwd(), "app/api/admin-login/route.ts"))).toBe(false);
+
+    const config = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
+    expect(config).toContain("/admin/:path*");
+    expect(config).toContain("/api/admin/:path*");
   });
 });

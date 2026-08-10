@@ -1,0 +1,286 @@
+{
+  "capturedAt": "2026-08-10T08:17:50.804Z",
+  "domain": "chuangtecasting.com",
+  "zone": {
+    "id": "4e95abb59fe4787507688c6d5321a13d",
+    "status": "active",
+    "nameServers": [
+      "eleanor.ns.cloudflare.com",
+      "sterling.ns.cloudflare.com"
+    ]
+  },
+  "cloudflareRecords": [
+    {
+      "type": "A",
+      "name": "chuangtecasting.com",
+      "content": "216.150.16.1",
+      "priority": null,
+      "ttl": 1,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "A",
+      "name": "chuangtecasting.com",
+      "content": "216.150.1.1",
+      "priority": null,
+      "ttl": 1,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "CNAME",
+      "name": "autoconfig.chuangtecasting.com",
+      "content": "autoconfig.forwardemail.net",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "CNAME",
+      "name": "autodiscover.chuangtecasting.com",
+      "content": "autodiscover.forwardemail.net",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "CNAME",
+      "name": "fe-bounces.chuangtecasting.com",
+      "content": "forwardemail.net",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "CNAME",
+      "name": "www.chuangtecasting.com",
+      "content": "baaa082fa95148f1.vercel-dns-016.com",
+      "priority": null,
+      "ttl": 1,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "MX",
+      "name": "chuangtecasting.com",
+      "content": "mx1.forwardemail.net",
+      "priority": 0,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "MX",
+      "name": "chuangtecasting.com",
+      "content": "mx2.forwardemail.net",
+      "priority": 0,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "TXT",
+      "name": "chuangtecasting.com",
+      "content": "\"forward-email-site-verification=JLWbRyqZ7L\"",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "TXT",
+      "name": "chuangtecasting.com",
+      "content": "\"v=spf1 include:spf.forwardemail.net ~all\"",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "TXT",
+      "name": "_dmarc.chuangtecasting.com",
+      "content": "\"v=DMARC1; p=reject; pct=100; rua=mailto:dmarc-6a7966847acbd88bc4c11b32@forwardemail.net;\"",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    },
+    {
+      "type": "TXT",
+      "name": "fe-3dbd7d2a4b._domainkey.chuangtecasting.com",
+      "content": "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAj/pTuTxfTh26ajzCxrwdcDAWUzlV3k2Vv/5sdxKmeB7TrWM7qvWau3nSLVFpoEHcj89NyGtBw/+Xpd5wBKBWKabb94S0b+2BANuC0z2evtwPw36el6tyqmlLL/l/D7mDi+Xlo+U+4PrfuESNsyWGRW3ILuy8o2UOMTOizbGh+wIDAQAB;\"",
+      "priority": null,
+      "ttl": 3600,
+      "proxied": false,
+      "comment": null,
+      "tags": []
+    }
+  ],
+  "publicDns": {
+    "MX": [
+      {
+        "name": "chuangtecasting.com.",
+        "recordType": 15,
+        "TTL": 3558,
+        "content": "0 mx1.forwardemail.net."
+      },
+      {
+        "name": "chuangtecasting.com.",
+        "recordType": 15,
+        "TTL": 3558,
+        "content": "0 mx2.forwardemail.net."
+      }
+    ],
+    "TXT": [
+      {
+        "name": "chuangtecasting.com.",
+        "recordType": 16,
+        "TTL": 3600,
+        "content": "v=spf1 include:spf.forwardemail.net ~all"
+      },
+      {
+        "name": "chuangtecasting.com.",
+        "recordType": 16,
+        "TTL": 3600,
+        "content": "forward-email-site-verification=JLWbRyqZ7L"
+      }
+    ]
+  },
+  "publicMailReadback": [
+    {
+      "expected": {
+        "type": "MX",
+        "name": "chuangtecasting.com",
+        "content": "mx1.forwardemail.net",
+        "priority": 0
+      },
+      "answers": [
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 15,
+          "TTL": 3600,
+          "content": "0 mx1.forwardemail.net."
+        },
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 15,
+          "TTL": 3600,
+          "content": "0 mx2.forwardemail.net."
+        }
+      ]
+    },
+    {
+      "expected": {
+        "type": "MX",
+        "name": "chuangtecasting.com",
+        "content": "mx2.forwardemail.net",
+        "priority": 0
+      },
+      "answers": [
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 15,
+          "TTL": 3558,
+          "content": "0 mx1.forwardemail.net."
+        },
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 15,
+          "TTL": 3558,
+          "content": "0 mx2.forwardemail.net."
+        }
+      ]
+    },
+    {
+      "expected": {
+        "type": "TXT",
+        "name": "chuangtecasting.com",
+        "content": "\"forward-email-site-verification=JLWbRyqZ7L\"",
+        "priority": null
+      },
+      "answers": [
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3600,
+          "content": "forward-email-site-verification=JLWbRyqZ7L"
+        },
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3600,
+          "content": "v=spf1 include:spf.forwardemail.net ~all"
+        }
+      ]
+    },
+    {
+      "expected": {
+        "type": "TXT",
+        "name": "chuangtecasting.com",
+        "content": "\"v=spf1 include:spf.forwardemail.net ~all\"",
+        "priority": null
+      },
+      "answers": [
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3557,
+          "content": "forward-email-site-verification=JLWbRyqZ7L"
+        },
+        {
+          "name": "chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3557,
+          "content": "v=spf1 include:spf.forwardemail.net ~all"
+        }
+      ]
+    },
+    {
+      "expected": {
+        "type": "TXT",
+        "name": "_dmarc.chuangtecasting.com",
+        "content": "\"v=DMARC1; p=reject; pct=100; rua=mailto:dmarc-6a7966847acbd88bc4c11b32@forwardemail.net;\"",
+        "priority": null
+      },
+      "answers": [
+        {
+          "name": "_dmarc.chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3600,
+          "content": "v=DMARC1; p=reject; pct=100; rua=mailto:dmarc-6a7966847acbd88bc4c11b32@forwardemail.net;"
+        }
+      ]
+    },
+    {
+      "expected": {
+        "type": "TXT",
+        "name": "fe-3dbd7d2a4b._domainkey.chuangtecasting.com",
+        "content": "\"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAj/pTuTxfTh26ajzCxrwdcDAWUzlV3k2Vv/5sdxKmeB7TrWM7qvWau3nSLVFpoEHcj89NyGtBw/+Xpd5wBKBWKabb94S0b+2BANuC0z2evtwPw36el6tyqmlLL/l/D7mDi+Xlo+U+4PrfuESNsyWGRW3ILuy8o2UOMTOizbGh+wIDAQAB;\"",
+        "priority": null
+      },
+      "answers": [
+        {
+          "name": "fe-3dbd7d2a4b._domainkey.chuangtecasting.com.",
+          "recordType": 16,
+          "TTL": 3600,
+          "content": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAj/pTuTxfTh26ajzCxrwdcDAWUzlV3k2Vv/5sdxKmeB7TrWM7qvWau3nSLVFpoEHcj89NyGtBw/+Xpd5wBKBWKabb94S0b+2BANuC0z2evtwPw36el6tyqmlLL/l/D7mDi+Xlo+U+4PrfuESNsyWGRW3ILuy8o2UOMTOizbGh+wIDAQAB;"
+        }
+      ]
+    }
+  ]
+}
