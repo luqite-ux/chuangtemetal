@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.siteUrl),
   title: { default: "ChuangTe Metal | Heat-Resistant Steel Castings", template: "%s | ChuangTe Metal" },
   description: SITE_CONFIG.tagline,
-  icons: { icon: "/brand/logo.png", apple: "/brand/logo.png" },
+  icons: { icon: "/icon.png", apple: "/icon.png" },
   openGraph: { title: "ChuangTe Metal", description: SITE_CONFIG.tagline, type: "website", url: "/en", images: [{ url: "/images/factory/factory-main.png" }] },
   twitter: { card: "summary_large_image", title: "ChuangTe Metal", description: SITE_CONFIG.tagline, images: ["/images/factory/factory-main.png"] },
 };

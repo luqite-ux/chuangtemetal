@@ -64,4 +64,12 @@ describe("public route contract", () => {
     const compatibilityLogin = readFileSync(join(process.cwd(), "app/login/route.ts"), "utf8");
     expect(compatibilityLogin).toContain('new URL("/admin/login", request.url)');
   });
+
+  it("uses the uploaded customer logo as the only browser icon source", () => {
+    expect(existsSync(join(process.cwd(), "app/icon.png"))).toBe(true);
+    expect(existsSync(join(process.cwd(), "app/favicon.ico"))).toBe(false);
+
+    const layout = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
+    expect(layout).toContain('icons: { icon: "/icon.png", apple: "/icon.png" }');
+  });
 });
