@@ -8,6 +8,7 @@ export type ArticleRecord = {
   content: string;
   featuredImage: string;
   publishedAt: string;
+  updatedAt: string;
 };
 
 export function mapArticleRow(row: Record<string, unknown>, locale = "en"): ArticleRecord {
@@ -18,6 +19,7 @@ export function mapArticleRow(row: Record<string, unknown>, locale = "en"): Arti
     content: resolveLocalizedValue(row.content_i18n as Record<string, string>, locale),
     featuredImage: String(row.featured_image || ""),
     publishedAt: String(row.published_at || row.created_at || ""),
+    updatedAt: String(row.updated_at || row.published_at || row.created_at || ""),
   };
 }
 

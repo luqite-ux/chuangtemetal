@@ -9,12 +9,14 @@ describe("multilingual product mapping", () => {
       name_i18n: { en: "Custom Tray", de: "Kundenspezifisches Tablett" },
       description_i18n: { en: "English description", de: "Deutsche Beschreibung" },
       image_url: "https://pub-example.r2.dev/tray.png",
+      updated_at: "2026-08-10T01:00:00.000Z",
       specs: { Temperature: "800–1100°C" },
     }, "de");
     expect(product.name).toBe("Kundenspezifisches Tablett");
     expect(product.description).toBe("Deutsche Beschreibung");
     expect(product.image).toBe("https://pub-example.r2.dev/tray.png");
     expect(product.gallery[0]).toBe("https://pub-example.r2.dev/tray.png");
+    expect(product.updatedAt).toBe("2026-08-10T01:00:00.000Z");
   });
 
   it("does not invent a rack weight", () => {
@@ -31,9 +33,11 @@ describe("multilingual article mapping", () => {
       excerpt_i18n: { en: "A short introduction." },
       content_i18n: { en: "<p>Article body</p>" },
       published_at: "2026-08-10T00:00:00.000Z",
+      updated_at: "2026-08-10T01:00:00.000Z",
     }, "de");
     expect(article.title).toBe("Thermal Fixture Basics");
     expect(article.excerpt).toBe("A short introduction.");
     expect(article.content).toContain("Article body");
+    expect(article.updatedAt).toBe("2026-08-10T01:00:00.000Z");
   });
 });

@@ -11,6 +11,7 @@ describe("public route contract", () => {
       "/en/products/heat-resistant-steel-charge-tray",
       "/en/products/heat-resistant-steel-charge-rack",
       "/en/capabilities",
+      "/en/quality",
       "/en/industries",
       "/en/factory",
       "/en/about",
@@ -32,6 +33,7 @@ describe("public route contract", () => {
     expect(NAV_ITEMS.map((item) => item.label)).toEqual([
       "Products",
       "Capabilities",
+      "Quality",
       "Industries",
       "Factory",
       "About",
@@ -45,6 +47,7 @@ describe("public route contract", () => {
       "app/admin/login/page.tsx",
       "app/admin/login/layout.tsx",
       "app/admin/logout/route.ts",
+      "app/login/route.ts",
       "app/api/auth/login/route.ts",
       "lib/admin-session.ts",
       "lib/supabase/server.ts",
@@ -57,5 +60,8 @@ describe("public route contract", () => {
     const config = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
     expect(config).toContain("/admin/:path*");
     expect(config).toContain("/api/admin/:path*");
+
+    const compatibilityLogin = readFileSync(join(process.cwd(), "app/login/route.ts"), "utf8");
+    expect(compatibilityLogin).toContain('new URL("/admin/login", request.url)');
   });
 });

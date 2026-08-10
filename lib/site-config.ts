@@ -17,6 +17,7 @@ export const PRODUCT_SLUGS = [
 export const NAV_ITEMS = [
   { label: "Products", href: "/en/products" },
   { label: "Capabilities", href: "/en/capabilities" },
+  { label: "Quality", href: "/en/quality" },
   { label: "Industries", href: "/en/industries" },
   { label: "Factory", href: "/en/factory" },
   { label: "About", href: "/en/about" },
@@ -30,6 +31,7 @@ export const PUBLIC_ROUTES = [
   "/en/products/heat-resistant-steel-charge-tray",
   "/en/products/heat-resistant-steel-charge-rack",
   "/en/capabilities",
+  "/en/quality",
   "/en/industries",
   "/en/factory",
   "/en/about",

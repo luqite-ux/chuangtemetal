@@ -9,6 +9,7 @@ export type ProductRecord = {
   specifications: Array<{ label: string; value: string }>;
   features: string[];
   applications: string[];
+  updatedAt?: string;
 };
 
 export const FALLBACK_PRODUCTS: ProductRecord[] = [

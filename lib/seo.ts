@@ -1,5 +1,6 @@
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/i18n";
 import type { ProductRecord } from "@/lib/products-fallback";
+import type { ArticleRecord } from "@/lib/articles-db";
 import { SITE_CONFIG } from "@/lib/site-config";
 import type { Metadata } from "next";
 
@@ -60,6 +61,42 @@ export function buildProductJsonLd(product: ProductRecord, locale: string = DEFA
     url: absoluteUrl(`/${locale}/products/${product.slug}`),
     brand: { "@type": "Brand", name: SITE_CONFIG.brand },
     manufacturer: { "@type": "Organization", name: SITE_CONFIG.legalName },
+  };
+}
+
+export function buildBreadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function buildArticleJsonLd(article: ArticleRecord, locale: string = DEFAULT_LOCALE) {
+  const url = absoluteUrl(`/${locale}/news/${article.slug}`);
+  const image = article.featuredImage
+    ? (article.featuredImage.startsWith("http") ? article.featuredImage : absoluteUrl(article.featuredImage))
+    : absoluteUrl("/images/factory/factory-main.png");
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.excerpt,
+    image: [image],
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt || article.publishedAt,
+    author: { "@type": "Organization", name: SITE_CONFIG.legalName },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.legalName,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/brand/logo.png") },
+    },
   };
 }
 

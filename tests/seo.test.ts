@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, buildAlternates, buildPageMetadata, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
+import { absoluteUrl, buildAlternates, buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
 import robots from "@/app/robots";
 
@@ -23,6 +23,32 @@ describe("technical SEO helpers", () => {
     expect(schema["@type"]).toBe("Product");
     expect(schema.name).toBe("Heat-Resistant Steel Charge Tray");
     expect(schema.url).toContain("/en/products/heat-resistant-steel-charge-tray");
+  });
+
+  it("builds article and breadcrumb schema for dynamic news pages", () => {
+    const article = buildArticleJsonLd({
+      slug: "process-note",
+      title: "Process note",
+      excerpt: "A verified process note.",
+      content: "<p>Body</p>",
+      featuredImage: "",
+      publishedAt: "2026-08-10T00:00:00.000Z",
+      updatedAt: "2026-08-10T01:00:00.000Z",
+    }, "en");
+    expect(article).toMatchObject({
+      "@type": "NewsArticle",
+      headline: "Process note",
+      datePublished: "2026-08-10T00:00:00.000Z",
+      dateModified: "2026-08-10T01:00:00.000Z",
+    });
+
+    const breadcrumb = buildBreadcrumbJsonLd([
+      { name: "Home", path: "/en" },
+      { name: "News", path: "/en/news" },
+      { name: "Process note", path: "/en/news/process-note" },
+    ]);
+    expect(breadcrumb["@type"]).toBe("BreadcrumbList");
+    expect(breadcrumb.itemListElement).toHaveLength(3);
   });
 
   it("builds complete product sharing metadata", () => {

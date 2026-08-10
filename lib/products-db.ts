@@ -12,6 +12,7 @@ type DbProduct = Record<string, unknown> & {
   image_url?: string;
   specs?: Record<string, unknown>;
   extra_data?: { images?: string[] };
+  updated_at?: string;
 };
 
 function localizedList(values: Record<string, string[] | string> | undefined, locale: string, fallback: string[]) {
@@ -35,6 +36,7 @@ export function mapProductRow(row: DbProduct, locale = "en"): ProductRecord {
       specifications: Object.entries(row.specs || {}).map(([label, value]) => ({ label, value: String(value) })),
       features: localizedList(row.features_i18n, locale, []),
       applications: localizedList(row.applications_i18n, locale, []),
+      updatedAt: row.updated_at,
     };
   }
   const image = row.image_url || fallback.image;
@@ -50,6 +52,7 @@ export function mapProductRow(row: DbProduct, locale = "en"): ProductRecord {
     specifications: mappedSpecs.length > 0 ? mappedSpecs : fallback.specifications,
     features: localizedList(row.features_i18n, locale, fallback.features),
     applications: localizedList(row.applications_i18n, locale, fallback.applications),
+    updatedAt: row.updated_at || fallback.updatedAt,
   };
 }
 
