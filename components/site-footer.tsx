@@ -1,14 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { NAV_ITEMS, SITE_CONFIG } from "@/lib/site-config";
+import { BrandLockup } from "@/components/brand-lockup";
 
 export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div>
-          <Image src="/brand/logo.png" alt="ChuangTe Metal" width={190} height={70} className="footer-logo" />
+          <BrandLockup footer />
           <p>{SITE_CONFIG.tagline}</p>
         </div>
         <div>

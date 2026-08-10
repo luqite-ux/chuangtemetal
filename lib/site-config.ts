@@ -4,9 +4,9 @@ export const SITE_CONFIG = {
   displayName: "泰州市创特金属材料有限公司",
   tagline: "Heat-resistant steel castings engineered for extreme conditions.",
   phone: "+86 158 6367 5553",
-  email: "3630495810@qq.com",
+  email: "info@chuangtecasting.com",
   address: "No. 21 Xiangyuan Road, Shanhuzhen Industrial Cluster, Taixing, Taizhou, Jiangsu, China",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://chuangtemetal.vercel.app",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || "https://chuangtecasting.com",
 } as const;
 
 export const PRODUCT_SLUGS = [

@@ -10,13 +10,25 @@ export function InquiryForm({ mode = "contact" }: { mode?: "contact" | "rfq" }) 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const formData = new FormData(form);
+    const drawing = formData.get("drawing");
+    formData.delete("drawing");
+    const data = Object.fromEntries(formData.entries());
     setStatus({ type: "pending", message: "Submitting your request…" });
     try {
+      let attachmentUrl = "";
+      if (drawing instanceof File && drawing.size > 0) {
+        const upload = new FormData();
+        upload.set("drawing", drawing);
+        const uploadResponse = await fetch("/api/rfq-attachments", { method: "POST", body: upload });
+        const uploadBody = await uploadResponse.json();
+        if (!uploadResponse.ok) throw new Error(uploadBody.error || "The drawing could not be uploaded.");
+        attachmentUrl = uploadBody.url;
+      }
       const response = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, source: mode }),
+        body: JSON.stringify({ ...data, source: mode, ...(attachmentUrl ? { attachmentUrl } : {}) }),
       });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "Unable to submit your request.");
@@ -40,6 +52,7 @@ export function InquiryForm({ mode = "contact" }: { mode?: "contact" | "rfq" }) 
           <label><span>Material</span><input name="material" placeholder="If already specified" /></label>
           <label><span>Quantity</span><input name="quantity" placeholder="MOQ starts from 2 pieces" /></label>
           <label><span>Application temperature</span><input name="applicationTemperature" placeholder="Operating range" /></label>
+          <label className="form-wide"><span>Drawing file</span><input name="drawing" type="file" accept=".pdf,.dwg,.dxf,.step,.stp,.zip" /></label>
         </>}
         <label className="form-wide"><span>Subject</span><input name="subject" placeholder={mode === "rfq" ? "Project or drawing reference" : "How can we help?"} /></label>
         <label className="form-wide"><span>Project details *</span><textarea name="message" required minLength={8} rows={6} placeholder="Tell us about the furnace, load, working temperature and technical requirements." /></label>

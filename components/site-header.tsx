@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { NAV_ITEMS } from "@/lib/site-config";
+import { BrandLockup } from "@/components/brand-lockup";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -14,7 +14,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="shell header-inner">
         <Link href="/en" className="brand-link" aria-label="ChuangTe Metal home">
-          <Image src="/brand/logo.png" alt="ChuangTe Metal" width={178} height={66} priority />
+          <BrandLockup />
         </Link>
         <nav className="desktop-nav" aria-label="Primary navigation">
           {NAV_ITEMS.map((item) => (
