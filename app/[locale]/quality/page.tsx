@@ -36,7 +36,7 @@ export default function QualityPage() {
       description="A practical framework for drawing review, quality control, inspection records and order-specific documentation."
     />
     <section className="section">
-      <div className="shell capability-card-grid">
+      <div className="shell capability-card-grid quality-grid">
         {practices.map(({ icon: Icon, title, text }, index) => (
           <Reveal key={title} className="capability-card" delay={index * .08}>
             <Icon />
