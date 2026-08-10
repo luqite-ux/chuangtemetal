@@ -156,6 +156,7 @@ img { object-fit: cover; }
 
 .product-detail-hero { padding: 145px 0 95px; background: linear-gradient(135deg, #f7fafb, #e7eef2); }
 .product-detail-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 65px; align-items: center; }
+.product-detail-grid > * { min-width: 0; }
 .gallery-main { position: relative; min-height: 540px; background: #dce4e8; box-shadow: var(--shadow); }
 .gallery-thumbs { display: flex; gap: 10px; margin-top: 13px; overflow-x: auto; padding-bottom: 4px; }
 .gallery-thumbs button { position: relative; flex: 0 0 78px; height: 66px; border: 2px solid transparent; background: #dce4e8; cursor: pointer; }
