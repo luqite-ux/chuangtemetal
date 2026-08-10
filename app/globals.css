@@ -27,8 +27,8 @@ img { object-fit: cover; }
 .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid transparent; border-radius: 4px; padding: 0 21px; font-size: 14px; font-weight: 720; transition: transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease; cursor: pointer; }
 .button:hover { transform: translateY(-2px); }
 .button:focus-visible, .text-link:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid rgba(242, 98, 34, .34); outline-offset: 3px; }
-.button-primary { background: var(--orange); color: #fff; box-shadow: 0 13px 30px rgba(204, 65, 14, .25); }
-.button-primary:hover { background: var(--orange-dark); }
+.button-primary { background: var(--orange-dark); color: #fff; box-shadow: 0 13px 30px rgba(153, 50, 8, .25); }
+.button-primary:hover { background: #993208; }
 .button-primary:disabled { background: #a75535; color: #f9ede8; cursor: wait; transform: none; box-shadow: none; }
 .button-secondary { border-color: #aebac3; background: rgba(255,255,255,.7); color: var(--ink); }
 .button-secondary:hover { background: var(--ink); color: #fff; border-color: var(--ink); }

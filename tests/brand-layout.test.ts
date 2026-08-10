@@ -8,4 +8,9 @@ describe("brand lockup layout", () => {
     expect(css).toMatch(/\.brand-mark\s*\{[^}]*width:\s*54px;[^}]*height:\s*54px;/s);
     expect(css).not.toMatch(/\.brand-link img\s*\{[^}]*height:\s*auto;/s);
   });
+
+  it("uses the WCAG-safe dark orange for white primary button text", () => {
+    const css = readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
+    expect(css).toMatch(/\.button-primary\s*\{[^}]*background:\s*var\(--orange-dark\)/s);
+  });
 });
