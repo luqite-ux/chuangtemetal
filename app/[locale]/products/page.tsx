@@ -3,8 +3,9 @@ import { PageHero } from "@/components/page-hero";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/motion/reveal";
 import { fetchProductsData } from "@/lib/products-db";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Heat-Resistant Steel Products", description: "Custom charge trays and charge racks for high-temperature furnace loading.", alternates: { canonical: "/en/products" } };
+export const metadata: Metadata = buildPageMetadata("Heat-Resistant Steel Products", "Custom charge trays and charge racks for high-temperature furnace loading.", "/products");
 export const revalidate = 60;
 
 export default async function ProductsPage({ params }: { params: Promise<{ locale: string }> }) {

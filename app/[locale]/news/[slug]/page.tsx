@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/articles-db";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -9,7 +10,7 @@ export const dynamicParams = true;
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
   const article = await getArticleBySlug(slug, locale);
-  return article ? { title: article.title, description: article.excerpt, alternates: { canonical: `/${locale}/news/${slug}` }, openGraph: { title: article.title, description: article.excerpt, images: article.featuredImage ? [{ url: article.featuredImage }] : undefined } } : {};
+  return article ? buildPageMetadata(article.title, article.excerpt, `/news/${slug}`, article.featuredImage || "/images/factory/factory-main.png", "article") : {};
 }
 
 export default async function NewsArticlePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {

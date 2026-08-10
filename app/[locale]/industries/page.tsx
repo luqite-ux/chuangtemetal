@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/motion/reveal";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Industries", description: "Heat-resistant steel fixture applications across metallurgy, power, petrochemical, mining and heat treatment.", alternates: { canonical: "/en/industries" } };
+export const metadata: Metadata = buildPageMetadata("Industries", "Heat-resistant steel fixture applications across metallurgy, power, petrochemical, mining and heat treatment.", "/industries");
 const industries = [{ title: "Metallurgy", text: "Fixtures developed for thermal processing and workpiece handling in demanding metal-production environments." }, { title: "Power", text: "Drawing-based cast components for high-temperature maintenance and production requirements." }, { title: "Petrochemical", text: "Heat-resistant alloy fixture discussions aligned with process temperature, atmosphere and load." }, { title: "Mining", text: "Heavy-duty cast solutions for thermal and wear-intensive industrial processing." }, { title: "Heat Treatment", text: "Charge trays and racks configured around furnace dimensions, circulation, workpiece layout and handling." }];
 export default function IndustriesPage() { return <><PageHero eyebrow="Industries" title="Heat-resistant fixtures for demanding process environments." description="Five customer-supplied application sectors, presented without invented project claims." /><section className="section"><div className="shell industry-page-list">{industries.map((item, index) => <Reveal key={item.title} className="industry-page-row"><span>0{index + 1}</span><div><h2>{item.title}</h2><p>{item.text}</p></div></Reveal>)}</div></section></>; }

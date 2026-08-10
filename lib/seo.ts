@@ -30,6 +30,26 @@ export function buildOrganizationJsonLd() {
   };
 }
 
+export function buildPageMetadata(
+  title: string,
+  description: string,
+  pathnameWithoutLocale = "",
+  imagePath = "/images/factory/factory-main.png",
+  type: "website" | "article" = "website",
+): Metadata {
+  const suffix = pathnameWithoutLocale ? (pathnameWithoutLocale.startsWith("/") ? pathnameWithoutLocale : `/${pathnameWithoutLocale}`) : "";
+  const url = absoluteUrl(`/${DEFAULT_LOCALE}${suffix}`);
+  const image = imagePath.startsWith("http") ? imagePath : absoluteUrl(imagePath);
+
+  return {
+    title,
+    description,
+    alternates: buildAlternates(pathnameWithoutLocale),
+    openGraph: { title, description, type, url, images: [{ url: image }] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
+  };
+}
+
 export function buildProductJsonLd(product: ProductRecord, locale: string = DEFAULT_LOCALE) {
   return {
     "@context": "https://schema.org",

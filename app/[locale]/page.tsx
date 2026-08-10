@@ -7,12 +7,9 @@ import { Reveal } from "@/components/motion/reveal";
 import { ProductCard } from "@/components/product-card";
 import { ThermalFlow } from "@/components/thermal-flow";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Custom Heat-Resistant Steel Castings",
-  description: "Custom heat-resistant steel charge trays and racks engineered from drawings for 800–1100°C furnace environments.",
-  alternates: { canonical: "/en" },
-};
+export const metadata: Metadata = buildPageMetadata("Custom Heat-Resistant Steel Castings", "Custom heat-resistant steel charge trays and racks engineered from drawings for 800–1100°C furnace environments.", "");
 
 const process = ["Requirement review", "Material selection", "Molding", "Casting", "Inspection", "Delivery"];
 const industries = ["Metallurgy", "Power", "Petrochemical", "Mining", "Heat treatment"];

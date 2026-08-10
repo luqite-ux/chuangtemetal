@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, buildAlternates, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
+import { absoluteUrl, buildAlternates, buildPageMetadata, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
 import robots from "@/app/robots";
 
@@ -32,6 +32,12 @@ describe("technical SEO helpers", () => {
       url: "https://chuangtecasting.com/en/products/heat-resistant-steel-charge-tray",
     });
     expect(metadata.twitter).toMatchObject({ card: "summary_large_image" });
+  });
+
+  it("uses the canonical page URL in Open Graph metadata", () => {
+    const metadata = buildPageMetadata("Factory", "Factory description", "/factory");
+    expect(metadata.alternates).toMatchObject({ canonical: "https://chuangtecasting.com/en/factory" });
+    expect(metadata.openGraph).toMatchObject({ url: "https://chuangtecasting.com/en/factory" });
   });
 
   it("keeps administration and API routes out of search results", () => {
