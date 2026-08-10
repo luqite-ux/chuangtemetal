@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { NAV_ITEMS, PUBLIC_ROUTES, PRODUCT_SLUGS } from "@/lib/site-config";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 
 describe("public route contract", () => {
   it("exposes every confirmed independent page", () => {
@@ -36,5 +38,10 @@ describe("public route contract", () => {
       "News",
       "Contact",
     ]);
+  });
+
+  it("provides the tenant administration login handoff", () => {
+    expect(existsSync(join(process.cwd(), "app/admin/page.tsx"))).toBe(true);
+    expect(existsSync(join(process.cwd(), "app/api/admin-login/route.ts"))).toBe(true);
   });
 });
