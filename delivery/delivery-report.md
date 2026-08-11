@@ -10,7 +10,7 @@
 - Admin group: `2`
 - Launch locale: English (`en`); extensible locale data and routes retained
 - Delivery date: `2026-08-11`
-- Current status: final remediation implemented; Production verification and Feishu readback are the remaining release steps
+- Current status: completed; GitHub `main`, Vercel Production, formal domains and Feishu readback were verified on `2026-08-11`
 
 ## Delivered scope
 
@@ -39,7 +39,7 @@
 - Customer administration: unauthenticated `/admin` redirects to `/admin/login`; formal account login remains on `chuangtecasting.com`; product, article and settings writes passed through the proxy; logout clears `hq_admin_session` and protected access returns to the customer login page.
 - Shared administration origin allowlist already includes both `chuangtecasting.com` and `www.chuangtecasting.com`.
 - Vercel: formal apex, `www` redirect and project domain verified; all six required environment variables are configured for Development, Preview and Production.
-- Feishu: customer row `1ae2e0!A32:L32` was read back through the API and all twelve delivery columns match the final customer data.
+- Feishu: customer row `1ae2e0!A32:L32` was updated without creating a duplicate and read back through the API; all twelve delivery columns remain populated, and column L records tenant `993d7d80-4466-4f38-8a93-078e32bc1627`, delivery date `2026-08-11` and current status `已完成`.
 - Cloudflare: active Zone with authoritative nameservers `eleanor.ns.cloudflare.com` and `sterling.ns.cloudflare.com`; Vercel-specific apex A and `www` CNAME records verified.
 - Corporate email DNS: six Cloudflare mail-related records were backed up and all six verified publicly; two public MX and two apex TXT answers were confirmed.
 
