@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/motion/reveal";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildTenantPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = buildPageMetadata("About", "About ChuangTe Metal, established in 2017 with more than 40 years of casting experience behind its production work.", "/about");
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) { const { locale } = await params; return buildTenantPageMetadata("About", "About ChuangTe Metal, established in 2017 with more than 40 years of casting experience behind its production work.", "/about", locale); }
 export default function AboutPage() { return <><PageHero eyebrow="About ChuangTe" title="A focused casting company with experienced manufacturing roots." description="Established in 2017 in Taixing, Jiangsu, with more than 40 years of casting experience supporting the work." /><section className="section"><div className="shell about-grid"><Reveal className="about-image"><Image src="/images/factory/factory-03.png" alt="Inside ChuangTe Metal" fill sizes="(max-width: 800px) 100vw, 50vw" /></Reveal><Reveal className="about-copy"><span className="eyebrow">Our focus</span><h2>Heat-resistant steel castings for industrial thermal processes.</h2><p>ChuangTe Metal specializes in sand-cast heat-resistant steel components, including custom charge trays and racks developed from customer drawings.</p><p>Products serve metallurgy, power, petrochemical, mining and heat-treatment applications. Technical scope is confirmed against each order’s geometry, material and operating requirements.</p><blockquote>Scientific management. Quality-focused production. Customer-centred communication.</blockquote></Reveal></div></section></>; }

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocaleLink } from "@/components/locale-link";
 
 export function PageHero({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
@@ -9,8 +9,8 @@ export function PageHero({ eyebrow, title, description }: { eyebrow: string; tit
         <h1>{title}</h1>
         <p>{description}</p>
         <div className="hero-actions">
-          <Link href="/en/request-a-quote" className="button button-primary">Start an RFQ</Link>
-          <Link href="/en/products" className="text-link">Explore products <span>↗</span></Link>
+          <LocaleLink href="/request-a-quote" className="button button-primary">Start an RFQ</LocaleLink>
+          <LocaleLink href="/products" className="text-link">Explore products <span>↗</span></LocaleLink>
         </div>
       </div>
     </section>

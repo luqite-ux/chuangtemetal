@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
 import { DraftingCompass, Factory, Flame, ScanLine } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/motion/reveal";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildTenantPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = buildPageMetadata("Casting Capabilities", "Drawing-based heat-resistant steel casting capabilities for large furnace fixtures.", "/capabilities");
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) { const { locale } = await params; return buildTenantPageMetadata("Casting Capabilities", "Drawing-based heat-resistant steel casting capabilities for large furnace fixtures.", "/capabilities", locale); }
 const cards = [{ icon: DraftingCompass, title: "Drawing-based engineering", text: "Geometry is reviewed around furnace space, load arrangement, handling and operating temperature." }, { icon: Flame, title: "Heat-resistant alloys", text: "Material selection is discussed against the supplied thermal and process conditions." }, { icon: Factory, title: "Sand casting", text: "Manufacturing is organized for custom, large-format heat-treatment fixtures." }, { icon: ScanLine, title: "Order-specific review", text: "Dimensions, quantity and production timing are confirmed for each technical order." }];
 export default function CapabilitiesPage() { return <><PageHero eyebrow="Capabilities" title="Custom casting begins with the operating condition." description="A focused workflow for non-standard heat-resistant trays, racks and large furnace fixtures." /><section className="section"><div className="shell capability-card-grid">{cards.map(({ icon: Icon, title, text }, index) => <Reveal key={title} className="capability-card" delay={index * .08}><Icon /><h2>{title}</h2><p>{text}</p></Reveal>)}</div></section><section className="section capacity-callout"><div className="shell capacity-grid"><Reveal><span className="eyebrow">Large-format capability</span><h2>Single castings up to 12 tons.</h2></Reveal><Reveal><p>This supplied maximum capability provides a clear starting point for discussing large furnace loading fixtures. Final feasibility remains subject to drawing, alloy, geometry and process review.</p></Reveal></div></section></>; }

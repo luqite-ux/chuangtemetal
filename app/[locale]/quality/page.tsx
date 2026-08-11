@@ -1,14 +1,17 @@
-import type { Metadata } from "next";
 import { ClipboardCheck, FileText, ScanSearch } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/motion/reveal";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildTenantPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = buildPageMetadata(
-  "Quality & Documentation",
-  "Order-specific quality control, inspection documentation and third-party inspection support for custom heat-resistant steel castings.",
-  "/quality",
-);
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return buildTenantPageMetadata(
+    "Quality & Documentation",
+    "Order-specific quality control, inspection documentation and third-party inspection support for custom heat-resistant steel castings.",
+    "/quality",
+    locale,
+  );
+}
 
 const practices = [
   {

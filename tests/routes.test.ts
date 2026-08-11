@@ -6,19 +6,20 @@ import { join } from "node:path";
 describe("public route contract", () => {
   it("exposes every confirmed independent page", () => {
     expect(PUBLIC_ROUTES).toEqual([
-      "/en",
-      "/en/products",
-      "/en/products/heat-resistant-steel-charge-tray",
-      "/en/products/heat-resistant-steel-charge-rack",
-      "/en/capabilities",
-      "/en/quality",
-      "/en/industries",
-      "/en/factory",
-      "/en/about",
-      "/en/news",
-      "/en/faq",
-      "/en/contact",
-      "/en/request-a-quote",
+      "",
+      "/products",
+      "/products/heat-resistant-steel-charge-tray",
+      "/products/heat-resistant-steel-charge-rack",
+      "/capabilities",
+      "/custom-process",
+      "/quality",
+      "/industries",
+      "/factory",
+      "/about",
+      "/news",
+      "/faq",
+      "/contact",
+      "/request-a-quote",
     ]);
   });
 
@@ -42,6 +43,14 @@ describe("public route contract", () => {
     ]);
   });
 
+  it("keeps navigation paths locale-neutral", () => {
+    expect(NAV_ITEMS.every((item) => !item.href.startsWith("/en"))).toBe(true);
+  });
+
+  it("provides an independent custom process page", () => {
+    expect(existsSync(join(process.cwd(), "app/[locale]/custom-process/page.tsx"))).toBe(true);
+  });
+
   it("provides the standard proxied tenant administration flow", () => {
     const required = [
       "app/admin/login/page.tsx",
@@ -51,7 +60,7 @@ describe("public route contract", () => {
       "app/api/auth/login/route.ts",
       "lib/admin-session.ts",
       "lib/supabase/server.ts",
-      "middleware.ts",
+      "proxy.ts",
     ];
     for (const file of required) expect(existsSync(join(process.cwd(), file))).toBe(true);
     expect(existsSync(join(process.cwd(), "app/admin/page.tsx"))).toBe(false);

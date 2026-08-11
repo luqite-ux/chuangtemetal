@@ -3,27 +3,40 @@ import type { ProductRecord } from "@/lib/products-fallback";
 import type { ArticleRecord } from "@/lib/articles-db";
 import { SITE_CONFIG } from "@/lib/site-config";
 import type { Metadata } from "next";
+import { getTenantLocaleConfig } from "@/lib/tenant-config";
 
 export function absoluteUrl(pathname = "/") {
   return new URL(pathname, `${SITE_CONFIG.siteUrl.replace(/\/$/, "")}/`).toString().replace(/\/$/, pathname === "/" ? "/" : "");
 }
 
-export function buildAlternates(pathnameWithoutLocale = "") {
+export function serializeJsonLd(value: unknown) {
+  return JSON.stringify(value)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
+export function buildAlternates(
+  pathnameWithoutLocale = "",
+  locale: string = DEFAULT_LOCALE,
+  enabledLocales: readonly string[] = SUPPORTED_LOCALES,
+  defaultLocale: string = DEFAULT_LOCALE,
+) {
   const normalized = pathnameWithoutLocale.startsWith("/") ? pathnameWithoutLocale : `/${pathnameWithoutLocale}`;
-  const languages = Object.fromEntries(SUPPORTED_LOCALES.map((locale) => [locale, absoluteUrl(`/${locale}${normalized}`)]));
+  const languages = Object.fromEntries(enabledLocales.map((enabledLocale) => [enabledLocale, absoluteUrl(`/${enabledLocale}${normalized}`)]));
   return {
-    canonical: absoluteUrl(`/${DEFAULT_LOCALE}${normalized}`),
-    languages: { ...languages, "x-default": absoluteUrl(`/${DEFAULT_LOCALE}${normalized}`) },
+    canonical: absoluteUrl(`/${locale}${normalized}`),
+    languages: { ...languages, "x-default": absoluteUrl(`/${defaultLocale}${normalized}`) },
   };
 }
 
-export function buildOrganizationJsonLd() {
+export function buildOrganizationJsonLd(defaultLocale: string = DEFAULT_LOCALE) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_CONFIG.legalName,
     alternateName: SITE_CONFIG.brand,
-    url: absoluteUrl("/en"),
+    url: absoluteUrl(`/${defaultLocale}`),
     logo: absoluteUrl("/brand/logo.png"),
     email: SITE_CONFIG.email,
     telephone: SITE_CONFIG.phone,
@@ -37,18 +50,33 @@ export function buildPageMetadata(
   pathnameWithoutLocale = "",
   imagePath = "/images/factory/factory-main.png",
   type: "website" | "article" = "website",
+  locale: string = DEFAULT_LOCALE,
+  enabledLocales: readonly string[] = SUPPORTED_LOCALES,
+  defaultLocale: string = DEFAULT_LOCALE,
 ): Metadata {
   const suffix = pathnameWithoutLocale ? (pathnameWithoutLocale.startsWith("/") ? pathnameWithoutLocale : `/${pathnameWithoutLocale}`) : "";
-  const url = absoluteUrl(`/${DEFAULT_LOCALE}${suffix}`);
+  const url = absoluteUrl(`/${locale}${suffix}`);
   const image = imagePath.startsWith("http") ? imagePath : absoluteUrl(imagePath);
 
   return {
     title,
     description,
-    alternates: buildAlternates(pathnameWithoutLocale),
+    alternates: buildAlternates(pathnameWithoutLocale, locale, enabledLocales, defaultLocale),
     openGraph: { title, description, type, url, images: [{ url: image }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   };
+}
+
+export async function buildTenantPageMetadata(
+  title: string,
+  description: string,
+  pathnameWithoutLocale: string,
+  locale: string,
+  imagePath = "/images/factory/factory-main.png",
+  type: "website" | "article" = "website",
+) {
+  const config = await getTenantLocaleConfig();
+  return buildPageMetadata(title, description, pathnameWithoutLocale, imagePath, type, locale, config.supportedLocales, config.defaultLocale);
 }
 
 export function buildProductJsonLd(product: ProductRecord, locale: string = DEFAULT_LOCALE) {
@@ -100,7 +128,12 @@ export function buildArticleJsonLd(article: ArticleRecord, locale: string = DEFA
   };
 }
 
-export function buildProductMetadata(product: ProductRecord, locale: string = DEFAULT_LOCALE): Metadata {
+export function buildProductMetadata(
+  product: ProductRecord,
+  locale: string = DEFAULT_LOCALE,
+  enabledLocales: readonly string[] = SUPPORTED_LOCALES,
+  defaultLocale: string = DEFAULT_LOCALE,
+): Metadata {
   const pathname = `/${locale}/products/${product.slug}`;
   const url = absoluteUrl(pathname);
   const image = product.image.startsWith("http") ? product.image : absoluteUrl(product.image);
@@ -108,7 +141,7 @@ export function buildProductMetadata(product: ProductRecord, locale: string = DE
   return {
     title: product.name,
     description: product.summary,
-    alternates: buildAlternates(`/products/${product.slug}`),
+    alternates: buildAlternates(`/products/${product.slug}`, locale, enabledLocales, defaultLocale),
     openGraph: {
       title: product.name,
       description: product.summary,

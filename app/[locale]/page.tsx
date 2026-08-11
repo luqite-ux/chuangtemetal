@@ -1,20 +1,24 @@
-import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, Flame, Layers3, Ruler, Settings2 } from "lucide-react";
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { ProductCard } from "@/components/product-card";
 import { ThermalFlow } from "@/components/thermal-flow";
-import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildTenantPageMetadata } from "@/lib/seo";
+import { LocaleLink } from "@/components/locale-link";
+import { fetchProductsData } from "@/lib/products-db";
 
-export const metadata: Metadata = buildPageMetadata("Custom Heat-Resistant Steel Castings", "Custom heat-resistant steel charge trays and racks engineered from drawings for 800–1100°C furnace environments.", "");
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return buildTenantPageMetadata("Custom Heat-Resistant Steel Castings", "Custom heat-resistant steel charge trays and racks engineered from drawings for 800–1100°C furnace environments.", "", locale);
+}
 
 const process = ["Requirement review", "Material selection", "Molding", "Casting", "Inspection", "Delivery"];
 const industries = ["Metallurgy", "Power", "Petrochemical", "Mining", "Heat treatment"];
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const products = await fetchProductsData(locale);
   return (
     <>
       <section className="home-hero">
@@ -27,8 +31,8 @@ export default function HomePage() {
             <h1>Heat-Resistant Steel Castings, <em>Engineered for Extreme Conditions.</em></h1>
             <p>Custom charge trays and racks developed from your drawings for demanding heat-treatment furnace environments.</p>
             <div className="hero-actions">
-              <Link href="/en/products" className="button button-primary">Explore Products <ArrowRight size={17} /></Link>
-              <Link href="/en/request-a-quote" className="button button-glass">Request a Quote</Link>
+              <LocaleLink href="/products" className="button button-primary">Explore Products <ArrowRight size={17} /></LocaleLink>
+              <LocaleLink href="/request-a-quote" className="button button-glass">Request a Quote</LocaleLink>
             </div>
           </Reveal>
         </div>
@@ -51,7 +55,7 @@ export default function HomePage() {
             <p>Every fixture begins with operating conditions and customer drawings—not a fixed catalogue shape.</p>
           </Reveal>
           <div className="product-grid">
-            {FALLBACK_PRODUCTS.map((product, index) => <Reveal key={product.slug} delay={index * 0.12}><ProductCard product={product} /></Reveal>)}
+            {products.map((product, index) => <Reveal key={product.slug} delay={index * 0.12}><ProductCard product={product} /></Reveal>)}
           </div>
         </div>
       </section>
@@ -62,12 +66,13 @@ export default function HomePage() {
           <div className="process-track">
             {process.map((item, index) => <Reveal key={item} className="process-step" delay={index * 0.08}><span>{String(index + 1).padStart(2, "0")}</span><h3>{item}</h3></Reveal>)}
           </div>
+          <Reveal className="process-link"><LocaleLink href="/custom-process" className="text-link">View the complete custom process <ArrowRight size={17} /></LocaleLink></Reveal>
         </div>
       </section>
 
       <section className="section industries-section">
         <div className="shell industries-layout">
-          <Reveal className="industries-copy"><span className="eyebrow">Industries we serve</span><h2>Cast for heat, load and repeatable handling.</h2><p>Our heat-resistant fixtures support demanding thermal processes across five supplied application sectors.</p><Link href="/en/industries" className="text-link">Explore applications <ArrowRight size={17} /></Link></Reveal>
+          <Reveal className="industries-copy"><span className="eyebrow">Industries we serve</span><h2>Cast for heat, load and repeatable handling.</h2><p>Our heat-resistant fixtures support demanding thermal processes across five supplied application sectors.</p><LocaleLink href="/industries" className="text-link">Explore applications <ArrowRight size={17} /></LocaleLink></Reveal>
           <div className="industries-list">
             {industries.map((industry, index) => <Reveal key={industry} className="industry-row" delay={index * 0.08}><span>0{index + 1}</span><h3>{industry}</h3><ArrowRight /></Reveal>)}
           </div>
@@ -84,12 +89,12 @@ export default function HomePage() {
             <span className="eyebrow">Inside ChuangTe</span><h2>Real manufacturing capacity, clearly presented.</h2>
             <p>Established in 2017 in Taixing, Jiangsu, ChuangTe Metal operates an 8,000 m² facility with two workshops and three production lines.</p>
             <div className="capability-icons"><span><Layers3 />2 workshops</span><span><Settings2 />3 production lines</span><span><Ruler />Up to 12 t</span></div>
-            <Link href="/en/factory" className="button button-secondary">Explore the factory</Link>
+            <LocaleLink href="/factory" className="button button-secondary">Explore the factory</LocaleLink>
           </Reveal>
         </div>
       </section>
 
-      <section className="section final-cta"><div className="shell"><Reveal className="final-cta-card"><span className="eyebrow">Have a drawing?</span><h2>Let’s turn operating conditions into a casting brief.</h2><p>Share dimensions, material requirements, load arrangement and furnace temperature with our team.</p><Link href="/en/request-a-quote" className="button button-primary">Start your RFQ <ArrowRight size={17} /></Link></Reveal></div></section>
+      <section className="section final-cta"><div className="shell"><Reveal className="final-cta-card"><span className="eyebrow">Have a drawing?</span><h2>Let’s turn operating conditions into a casting brief.</h2><p>Share dimensions, material requirements, load arrangement and furnace temperature with our team.</p><LocaleLink href="/request-a-quote" className="button button-primary">Start your RFQ <ArrowRight size={17} /></LocaleLink></Reveal></div></section>
     </>
   );
 }

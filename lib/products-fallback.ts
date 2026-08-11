@@ -8,6 +8,7 @@ export type ProductRecord = {
   gallery: string[];
   specifications: Array<{ label: string; value: string }>;
   features: string[];
+  advantages: string[];
   applications: string[];
   updatedAt?: string;
 };
@@ -40,6 +41,7 @@ export const FALLBACK_PRODUCTS: ProductRecord[] = [
       "Geometry developed around furnace, load and handling conditions",
       "Available for large-format, heavy-duty furnace applications",
     ],
+    advantages: [],
     applications: ["Heat treatment", "Metallurgy", "Power", "Petrochemical", "Mining"],
   },
   {
@@ -66,6 +68,7 @@ export const FALLBACK_PRODUCTS: ProductRecord[] = [
       "Open configuration for furnace circulation",
       "Designed around loading, handling and cycle requirements",
     ],
+    advantages: [],
     applications: ["Heat treatment", "Metallurgy", "Power", "Petrochemical", "Mining"],
   },
 ];

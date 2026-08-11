@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { absoluteUrl, buildAlternates, buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd, buildProductMetadata } from "@/lib/seo";
+import { absoluteUrl, buildAlternates, buildArticleJsonLd, buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd, buildProductMetadata, serializeJsonLd } from "@/lib/seo";
 import { FALLBACK_PRODUCTS } from "@/lib/products-fallback";
 import robots from "@/app/robots";
 
@@ -13,6 +13,17 @@ describe("technical SEO helpers", () => {
       canonical: "https://chuangtecasting.com/en/products",
       languages: {
         en: "https://chuangtecasting.com/en/products",
+        "x-default": "https://chuangtecasting.com/en/products",
+      },
+    });
+  });
+
+  it("emits reciprocal alternates for every tenant-enabled locale", () => {
+    expect(buildAlternates("/products", "de", ["en", "de"])).toEqual({
+      canonical: "https://chuangtecasting.com/de/products",
+      languages: {
+        en: "https://chuangtecasting.com/en/products",
+        de: "https://chuangtecasting.com/de/products",
         "x-default": "https://chuangtecasting.com/en/products",
       },
     });
@@ -73,5 +84,12 @@ describe("technical SEO helpers", () => {
       allow: "/",
       disallow: ["/admin", "/api/", "/auth/", "/preview/"],
     });
+  });
+
+  it("serializes database content without allowing a closing script tag", () => {
+    const serialized = serializeJsonLd({ name: '</script><script>alert("xss")</script>' });
+    expect(serialized).not.toContain("</script>");
+    expect(serialized).toContain("\\u003c/script>");
+    expect(JSON.parse(serialized).name).toBe('</script><script>alert("xss")</script>');
   });
 });
