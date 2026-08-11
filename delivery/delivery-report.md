@@ -24,7 +24,7 @@
 
 ## Verification evidence
 
-- Unit/integration tests: 42 passed.
+- Unit/integration tests: 43 passed.
 - ESLint: passed.
 - Next.js 16.2.11 production build: passed; all static, ISR, dynamic detail, administration and API routes generated successfully.
 - Browser QA: all 14 Sitemap pages opened on desktop and 390 px mobile; one `h1` per page, no broken images, no remaining horizontal overflow, and mobile navigation verified.
@@ -50,6 +50,7 @@
 - `advantages_i18n` is mapped and rendered with the established locale fallback order.
 - Published article HTML is sanitized before rendering and news image alternative text uses the article title.
 - The browser icon is a compact square CT mark derived from the supplied customer logo; the full brand lockup remains unchanged in the site header and footer.
+- The header and footer lockup use a dedicated transparent CT mark, so the logo no longer introduces a white image rectangle on light or dark backgrounds.
 - Chrome opened the audited page with `/icon.png` as its selected icon declaration. The Windows tab-strip screenshot interface returned a window-handle error, so this report does not misrepresent that failed screenshot as a visual tab-strip confirmation.
 
 ## Privacy cleanup note

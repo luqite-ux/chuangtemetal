@@ -40,8 +40,8 @@ img { object-fit: cover; }
 .header-inner { height: 76px; display: flex; align-items: center; gap: 30px; }
 .brand-link { display: flex; flex: 0 0 auto; }
 .brand-lockup { display: inline-flex; align-items: center; gap: 9px; }
-.brand-mark { width: 54px; height: 54px; position: relative; overflow: hidden; flex: 0 0 54px; background: #fff; }
-.brand-mark img { object-fit: cover; object-position: left center; transform: scale(1.58); transform-origin: left center; }
+.brand-mark { width: 54px; height: 54px; position: relative; overflow: hidden; flex: 0 0 54px; }
+.brand-mark img { object-fit: contain; }
 .brand-name { display: flex; flex-direction: column; font-size: 16px; line-height: .94; font-weight: 790; letter-spacing: -.035em; }
 .brand-name span { font-size: 15px; }
 .desktop-nav { margin-left: auto; display: flex; align-items: center; gap: 25px; }
