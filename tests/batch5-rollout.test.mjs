@@ -80,9 +80,11 @@ test('refresh invalidates only its form scope and wrong answers consume that cha
 test('every inquiry UI mounts the scoped challenge and every persistence path verifies before insert', () => {
   const form = readFileSync(new URL('../components/inquiry-form.tsx', import.meta.url), 'utf8')
   const route = readFileSync(new URL('../app/api/inquiries/route.ts', import.meta.url), 'utf8')
+  const captchaRoute = readFileSync(new URL('../app/api/captcha/route.ts', import.meta.url), 'utf8')
   assert.match(form, /InquiryCaptchaField/)
   assert.match(form, /refreshKey=\{captchaRefreshKey\}/)
   assert.match(route, /verifyCaptchaSubmission/)
+  assert.doesNotMatch(captchaRoute, /export function createCaptchaGetHandler/)
   assert.match(route, /createSupabaseCaptchaContextFromEnv/)
   assert.match(route, /captchaScope/)
   assert.match(route, /captchaToken/)
