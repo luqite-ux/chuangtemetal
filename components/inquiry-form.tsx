@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { InquiryCaptchaField } from "@/components/inquiry-captcha-field";
 
 type FormStatus = { type: "idle" | "pending" | "success" | "error"; message: string };
 
 export function InquiryForm({ mode = "contact" }: { mode?: "contact" | "rfq" }) {
   const [status, setStatus] = useState<FormStatus>({ type: "idle", message: "" });
+  const [captchaRefreshKey, setCaptchaRefreshKey] = useState(0);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -33,8 +35,10 @@ export function InquiryForm({ mode = "contact" }: { mode?: "contact" | "rfq" }) 
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "Unable to submit your request.");
       form.reset();
+      setCaptchaRefreshKey((key) => key + 1);
       setStatus({ type: "success", message: "Thank you. Your request has been recorded." });
     } catch (error) {
+      setCaptchaRefreshKey((key) => key + 1);
       setStatus({ type: "error", message: error instanceof Error ? error.message : "Unable to submit your request." });
     }
   }
@@ -57,6 +61,7 @@ export function InquiryForm({ mode = "contact" }: { mode?: "contact" | "rfq" }) 
         <label className="form-wide"><span>Subject</span><input name="subject" placeholder={mode === "rfq" ? "Project or drawing reference" : "How can we help?"} /></label>
         <label className="form-wide"><span>Project details *</span><textarea name="message" required minLength={8} rows={6} placeholder="Tell us about the furnace, load, working temperature and technical requirements." /></label>
       </div>
+      <InquiryCaptchaField refreshKey={captchaRefreshKey} />
       <div className="form-submit-row">
         <button className="button button-primary" type="submit" disabled={status.type === "pending"}>{status.type === "pending" ? "Submitting…" : mode === "rfq" ? "Submit RFQ" : "Send enquiry"}</button>
         <p className={`form-status ${status.type}`} role="status">{status.message}</p>

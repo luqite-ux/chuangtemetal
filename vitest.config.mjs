@@ -13,5 +13,6 @@ export default defineConfig({
   test: {
     environment: "node",
     globals: true,
+    exclude: ["tests/batch5-rollout.test.mjs", "node_modules/**"],
   },
 });

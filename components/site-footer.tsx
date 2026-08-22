@@ -8,7 +8,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div>
-          <BrandLockup footer />
+          <LocaleLink href="/" aria-label="ChuangTe Metal home"><BrandLockup footer /></LocaleLink>
           <p>{SITE_CONFIG.tagline}</p>
         </div>
         <div>
@@ -29,7 +29,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© {new Date().getFullYear()} ChuangTe Metal. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} {SITE_CONFIG.legalName} All rights reserved.</span>
         <LocaleLink href="/contact">Talk to our team</LocaleLink>
       </div>
     </footer>
