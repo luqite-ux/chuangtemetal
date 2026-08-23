@@ -15,6 +15,9 @@ const inquirySchema = z
     quantity: z.string().trim().max(120).optional().default(""),
     applicationTemperature: z.string().trim().max(120).optional().default(""),
     attachmentUrl: z.url().optional(),
+    captchaScope: z.string().trim().max(160).optional().default(""),
+    captchaToken: z.string().trim().max(2048).optional().default(""),
+    captchaAnswer: z.string().trim().max(16).optional().default(""),
   })
   .strict();
 

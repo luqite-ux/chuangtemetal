@@ -15,6 +15,22 @@ describe("inquiry validation", () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts the CAPTCHA fields sent by the real inquiry form", () => {
+    const result = validateInquiry({
+      name: "Alex Smith",
+      email: "alex@example.com",
+      company: "Example Industries",
+      phone: "+1 555 0100",
+      subject: "Charge tray request",
+      message: "Please review the attached operating conditions.",
+      source: "contact",
+      captchaScope: "captcha_scope_1234567890",
+      captchaToken: "signed-captcha-token",
+      captchaAnswer: "A2B3",
+    });
+    expect(result.success).toBe(true);
+  });
+
   it("rejects invalid email and tenant injection", () => {
     const result = validateInquiry({
       name: "Alex",
