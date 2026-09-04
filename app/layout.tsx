@@ -30,6 +30,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body className={`${geist.variable} ${geistMono.variable}`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildOrganizationJsonLd(localeConfig.defaultLocale)) }} />
         {children}
+        {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_TENANT_ID && (
+          <script
+            async
+            src={`https://admin.globle-trade.com/api/public/analytics.js?tenantId=${encodeURIComponent(process.env.NEXT_PUBLIC_TENANT_ID)}`}
+          />
+        )}
       </body>
     </html>
   );
