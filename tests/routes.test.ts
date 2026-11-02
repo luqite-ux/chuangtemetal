@@ -81,4 +81,13 @@ describe("public route contract", () => {
     const layout = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
     expect(layout).toContain('icons: { icon: "/icon.png", apple: "/icon.png" }');
   });
+
+  it("renders visible borders for editorial tables in public articles", () => {
+    const styles = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+
+    expect(styles).toMatch(/\.article-prose\s+table\s*\{/);
+    expect(styles).toMatch(/\.article-prose\s+th\s*,\s*\.article-prose\s+td\s*\{/);
+    expect(styles).toMatch(/border:\s*1px\s+solid\s+[^;]+;/);
+    expect(styles).toMatch(/border-collapse:\s*collapse;/);
+  });
 });
